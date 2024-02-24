@@ -1,4 +1,5 @@
 import logo from "@assets/images/logo.svg";
+import fasco from "@assets/images/fasco.png";
 const Login = () => {
   return (
     <>
@@ -9,8 +10,13 @@ const Login = () => {
               <div className="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                 <div className="d-table-cell align-middle">
                   <div className="text-center mt-4">
-                    <img src={logo} style={{ height: "100px" }} />
-                    <h1 className="h2">پلتفرم آموزش آنلاین</h1>
+                    <img
+                      src={fasco}
+                      style={{
+                        marginBottom: "30px",
+                      }}
+                    />
+                    <h1 className="h2">پنل ادمین فروشگاه ری اکت</h1>
                     <p className="lead">
                       جهت ورود لازم است از طریق موبایل و رمز عبور خود اقدام کنید
                     </p>
