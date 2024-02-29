@@ -1,7 +1,7 @@
-import logo from "@assets/images/logo.svg";
 import fasco from "@assets/images/fasco.png";
-import { Link } from "react-router-dom";
+import { Link, useSubmit } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { httpService } from "../../../core/http-service";
 
 const Register = () => {
   const {
@@ -10,7 +10,19 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const submitForm = useSubmit();
+  const onSubmit = (data) => {
+    try {
+      const { confirmPassword, ...userData } = data;
+      const response = submitForm(userData, { method: "post" });
+      console.log("Response from server:", response);
+      response;
+    } catch (error) {
+      console.error("Error occurred during form submission:", error);
+    }
+  };
+
   return (
     <>
       <div className="text-center mt-4">
@@ -95,22 +107,19 @@ const Register = () => {
                   type="password"
                 />
 
-
-
-
-{errors.confirmPassword && errors.confirmPassword.type === "required" && (
-                  <p className="text-danger small fw-bolder mt-1">
-                    {errors.confirmPassword?.message}
-                  </p>
-                )}
-
                 {errors.confirmPassword &&
-                  errors.confirmPassword.type === "validate"  && (
+                  errors.confirmPassword.type === "required" && (
                     <p className="text-danger small fw-bolder mt-1">
-                       {errors.confirmPassword?.message}~
+                      {errors.confirmPassword?.message}
                     </p>
                   )}
 
+                {errors.confirmPassword &&
+                  errors.confirmPassword.type === "validate" && (
+                    <p className="text-danger small fw-bolder mt-1">
+                      {errors.confirmPassword?.message}~
+                    </p>
+                  )}
               </div>
               <div className="text-center mt-3">
                 <button type="submit" className="btn btn-lg btn-primary">
@@ -125,3 +134,18 @@ const Register = () => {
   );
 };
 export default Register;
+
+export async function registerAction({ request }) {
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    const response = await httpService.post("/register", data);
+    console.log("Data sent to server:", data);
+    console.log("Response from server:", response);
+
+    return response.status === 200;
+  } catch (error) {
+    console.error("Error occurred during form submission:", error);
+    return false;
+  }
+}
