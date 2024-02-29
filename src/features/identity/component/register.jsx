@@ -1,7 +1,14 @@
 import fasco from "@assets/images/fasco.png";
-import { Link, useSubmit } from "react-router-dom";
+import {
+  Link,
+  useActionData,
+  useNavigate,
+  useNavigation,
+  useSubmit,
+} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { httpService } from "../../../core/http-service";
+import { useEffect } from "react";
 
 const Register = () => {
   const {
@@ -22,6 +29,21 @@ const Register = () => {
       console.error("Error occurred during form submission:", error);
     }
   };
+
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state !== "idle";
+
+  const isSuccessOperation = useActionData();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccessOperation) {
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
+  }, [isSuccessOperation]);
 
   return (
     <>
@@ -122,10 +144,19 @@ const Register = () => {
                   )}
               </div>
               <div className="text-center mt-3">
-                <button type="submit" className="btn btn-lg btn-primary">
-                  ثبت نام کنید
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-lg btn-primary"
+                >
+                  {isSubmitting ? "در حال انجام عملیات" : "ثبت نام کنید"}
                 </button>
               </div>
+              {isSuccessOperation && (
+                <div className="alert alert-success text-success p-2 mt-3">
+                  عملیات با موفقیت انجام شد به صفحه ورود منتقل میشوید
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -142,8 +173,7 @@ export async function registerAction({ request }) {
     const response = await httpService.post("/register", data);
     console.log("Data sent to server:", data);
     console.log("Response from server:", response);
-
-    return response.status === 200;
+    return response.status === 200 || 201;
   } catch (error) {
     console.error("Error occurred during form submission:", error);
     return false;
