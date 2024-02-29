@@ -4,6 +4,7 @@ import {
   useActionData,
   useNavigate,
   useNavigation,
+  useRouteError,
   useSubmit,
 } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -44,6 +45,8 @@ const Register = () => {
       }, 2000);
     }
   }, [isSuccessOperation]);
+
+  const routeErrors = useRouteError();
 
   return (
     <>
@@ -157,6 +160,14 @@ const Register = () => {
                   عملیات با موفقیت انجام شد به صفحه ورود منتقل میشوید
                 </div>
               )}
+
+              {routeErrors && (
+                <div className="alert alert-danger text-danger p-2 mt-3">
+                  {routeErrors.response.data.mobile.map((error) => (
+                    <p className="mb-0">{error}</p>
+                  ))}
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -167,15 +178,10 @@ const Register = () => {
 export default Register;
 
 export async function registerAction({ request }) {
-  try {
-    const formData = await request.formData();
-    const data = Object.fromEntries(formData);
-    const response = await httpService.post("/register", data);
-    console.log("Data sent to server:", data);
-    console.log("Response from server:", response);
-    return response.status === 200 || 201;
-  } catch (error) {
-    console.error("Error occurred during form submission:", error);
-    return false;
-  }
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  const response = await httpService.post("/register", data);
+  console.log("Data sent to server:", data);
+  console.log("Response from server:", response);
+  return response.status === 200 || 201;
 }

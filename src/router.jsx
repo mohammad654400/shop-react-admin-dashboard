@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "./features/identity/component/login";
-import Register, { registerAction } from "./features/identity/component/register";
+import Register, {
+  registerAction,
+} from "./features/identity/component/register";
 import IdentityLayout from "./layouts/identity-layout";
 
 const router = createBrowserRouter([
@@ -15,6 +17,7 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register />,
         action: registerAction,
+        errorElement: <Register />,
       },
     ],
   },
