@@ -1,6 +1,17 @@
 {
-    "register":{
-        "register":"Register"
+  "register": {
+    "register": "Register",
+    "title": "React store admin panel",
+    "description": "To log in, you need to use your mobile phone and password",
+    "question": "Already registered?",
+    "logIn": "log in",
+    "mobile": "mobile",
+    "password": "password",
+    "repeatPassword": "Password Repeat",
+    "errorPassword":"The number of mobile digits must be 11 digits",
+    "errorRepeatPassword":"Repeat password is required",
+    "incompatibility":"The entered password does not match",
+    "errorMobile":"Mobile is mandatory"
 
-    }
+  }
 }
