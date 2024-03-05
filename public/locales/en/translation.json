@@ -8,10 +8,22 @@
     "mobile": "mobile",
     "password": "password",
     "repeatPassword": "Password Repeat",
-    "errorPassword":"The number of mobile digits must be 11 digits",
-    "errorRepeatPassword":"Repeat password is required",
-    "incompatibility":"The entered password does not match",
-    "errorMobile":"Mobile is mandatory"
-
+    "errorPassword": "The number of mobile digits must be 11 digits",
+    "errorRepeatPassword": "Repeat password is required",
+    "incompatibility": "The entered password does not match",
+    "errorMobile": "Mobile is mandatory"
+  },
+  "login": {
+    "login": {
+      "title": "React store admin panel",
+      "description": "To log in, you need to use your mobile phone and password",
+      "mobile": "mobile",
+      "password": "password",
+      "signin": "signin",
+      "signingin": "signin...",
+      "errorMobile": "Mobile is mandatory",
+      "errorPassword": "The number of mobile digits must be 11 digits",
+      "question":"Haven't registered?"
+    }
   }
 }
