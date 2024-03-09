@@ -6,16 +6,44 @@ import Register, {
 import IdentityLayout from "./layouts/identity-layout";
 import MainLayout from "./layouts/main-layout";
 import Courses from "./pages/courses";
+import Home from "./pages/home";
+import ListItems from "./layouts/list-items";
+import AddProduct from "./pages/addProduct";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
-    children:[{
-      element:<Courses/>,
-      index:true
-    }]
+    element: (
+      <MainLayout>
+        <Home></Home>
+      </MainLayout>
+    ),
   },
+  {
+    path: "/courses",
+    element: (
+      <MainLayout>
+        <Courses />
+      </MainLayout>
+    ),
+  },
+  {
+    path: "/addProduct",
+    element: (
+      <MainLayout>
+        <AddProduct />
+      </MainLayout>
+    ),
+  },
+  {
+    path: "/courses/:type",
+    element: (
+      <MainLayout>
+        <ListItems />
+      </MainLayout>
+    ),
+  },
+
   {
     element: <IdentityLayout />,
     children: [

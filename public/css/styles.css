@@ -22845,3 +22845,9 @@ body[data-direction="rtl"] * {
 body[data-direction="ltr"] * {
   direction: ltr;
 }
+.remove {
+  width: 24px;
+  height: 24px;
+  background-image: url(../../src/assets/images/icons8-remove-24.png);
+  background-repeat: no-repeat;
+}

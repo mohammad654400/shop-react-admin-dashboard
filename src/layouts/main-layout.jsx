@@ -1,9 +1,9 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import ChangeLanguage from "../components/change-language";
-import { useEffect, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import logo from "@assets/images/fasco.png";
 
-const MainLayout = () => {
+const MainLayout = ({ children }) => {
   const [collapseSidebar, setCollapseSidebar] = useState(false);
 
   const token = localStorage.getItem("token");
@@ -17,7 +17,6 @@ const MainLayout = () => {
   }, []);
 
   return (
-    
     <div className="wrapper" style={{ minHeight: "100h" }}>
       <nav className={`sidebar ${collapseSidebar ? "collapsed" : ""}`}>
         <div className="sidebar-content">
@@ -27,7 +26,12 @@ const MainLayout = () => {
           </a>
 
           <ul className="sidebar-nav pe-0">
-            <li className="sidebar-header fw-bolder fs-lg">مدیریت</li>
+            <Link to={"/courses"}>
+              <li className="sidebar-header fw-bolder fs-lg">مدیریت</li>
+            </Link>
+            <Link to={"/addProduct"}>
+              <li className="sidebar-header fw-bolder fs-lg">ایجاد محصول</li>
+            </Link>
           </ul>
         </div>
       </nav>
@@ -47,9 +51,7 @@ const MainLayout = () => {
         </nav>
 
         <main className="content">
-          <div className="container-fluid p-0">
-            <Outlet />
-          </div>
+          <div className="container-fluid p-0">{children}</div>
         </main>
 
         <footer className="footer">
